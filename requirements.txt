@@ -7,3 +7,4 @@ python-dotenv==1.2.1
 ragas==0.4.3
 sentence-transformers==5.2.3
 xlrd==2.0.2
+streamlit==1.55.0
