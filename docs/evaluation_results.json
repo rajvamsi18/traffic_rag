@@ -1,0 +1,197 @@
+{
+  "ragas_scores": {
+    "faithfulness": 0.9411764705882353,
+    "answer_relevancy": 0.8928737006302901,
+    "context_precision": NaN
+  },
+  "num_test_cases": 15,
+  "num_scored": 15,
+  "model": "llama-3.3-70b-versatile",
+  "results": [
+    {
+      "question": "Which road in Guntur district has the highest truck traffic?",
+      "answer": "The Hyderabad to Guntur Road, specifically at location P526, has the highest truck traffic, with 1,179 trucks per day.",
+      "reference": "P526 on the Hyderabad to Guntur Road has the highest truck traffic with 1,179 trucks per day.",
+      "type": "superlative",
+      "locations": [
+        "P526"
+      ],
+      "strategy": [
+        "superlative:highest truck traffic"
+      ]
+    },
+    {
+      "question": "Which location has the lowest AADT in the district?",
+      "answer": "The location with the lowest AADT in the district is P605 (Pakalapadu to Paladugu Via Abburu) with an AADT of 63 vehicles per day. [Retrieval note: P605 was selected because it has the lowest total AADT among all 84 surveyed locations.]",
+      "reference": "P605 on the Pakalapadu to Paladugu Via Abburu road has the lowest AADT with 63 vehicles per day.",
+      "type": "superlative",
+      "locations": [
+        "P605"
+      ],
+      "strategy": [
+        "superlative:lowest total AADT"
+      ]
+    },
+    {
+      "question": "Which road has the most two-wheelers per day?",
+      "answer": "The Guntur to Bapatla to Chirala Road, at location P528, has the most two-wheelers per day, with 7,093 two-wheelers per day. [Retrieval note: P528 was selected because it has the highest two-wheeler count among all 84 surveyed locations.]",
+      "reference": "P528 on the Guntur to Bapatla to Chirala Road has the most two-wheelers with 7,093 per day.",
+      "type": "superlative",
+      "locations": [
+        "P528"
+      ],
+      "strategy": [
+        "superlative:highest two-wheeler count"
+      ]
+    },
+    {
+      "question": "Which location has the highest total AADT?",
+      "answer": "The location with the highest total AADT is P528, on the Guntur to Bapatla to Chirala Road, with an AADT of 12,669 vehicles per day. [Retrieval note: P528 was selected because it has the highest total AADT among all 84 surveyed locations.]",
+      "reference": "P528 on the Guntur to Bapatla to Chirala Road has the highest AADT with 12,669 vehicles per day.",
+      "type": "superlative",
+      "locations": [
+        "P528"
+      ],
+      "strategy": [
+        "superlative:highest total AADT"
+      ]
+    },
+    {
+      "question": "Which road has the highest goods vehicle traffic?",
+      "answer": "The Hyderabad to Guntur Road at location P526 has the highest goods vehicle traffic, with 1,688 goods vehicles per day. This includes trucks, LCVs, MAVs, and tractors, with the highest volumes being Multi-Axle Vehicles / Articulated Trucks (725/day), Tractors with Trailer (309/day), and 3-Axle Trucks (246/day). [Retrieval note: P526 was selected because it has the highest truck traffic among all 84 surveyed locations.]",
+      "reference": "P526 on the Hyderabad to Guntur Road has the highest goods vehicle traffic with 1,688 goods vehicles per day.",
+      "type": "superlative",
+      "locations": [
+        "P526"
+      ],
+      "strategy": [
+        "superlative:highest truck traffic"
+      ]
+    },
+    {
+      "question": "Tell me about survey location P606.",
+      "answer": "Survey location P606 is on the Pulladigunta to Pericherla road, near Nallapadu at chainage 9.4 km in Guntur District, Andhra Pradesh. The Annual Average Daily Traffic (AADT) at location P606 is 448 vehicles per day, generating 579 Passenger Car Units (PCUs). The dominant vehicle type is two wheelers, with 271 two wheelers per day (60.5% of total). The traffic is roughly balanced between both directions, with 210 vehicles per day from Pulladigunta to Pericherla and 227 vehicles per day from Pericherla to Pulladigunta. The peak traffic hour is 11:00 - 12:00, with 33 vehicles recorded in that hour, representing 7.6% of the total daily traffic volume.",
+      "reference": "P606 is on the Pulladigunta to Pericherla road near Nallapadu. AADT is 448 vehicles per day. Peak hour is 11:00-12:00.",
+      "type": "location_specific_code",
+      "locations": [
+        "P606"
+      ],
+      "strategy": [
+        "location_specific"
+      ]
+    },
+    {
+      "question": "What is the AADT at location P605?",
+      "answer": "The Annual Average Daily Traffic (AADT) at location P605 (Pakalapadu to Paladugu Via Abburu) is 63 vehicles per day.",
+      "reference": "The AADT at P605 on the Pakalapadu to Paladugu Via Abburu road is 63 vehicles per day.",
+      "type": "location_specific_code",
+      "locations": [
+        "P605"
+      ],
+      "strategy": [
+        "location_specific"
+      ]
+    },
+    {
+      "question": "What is the peak hour at location P528?",
+      "answer": "The peak hour at location P528 is 18:00 - 19:00, during the evening rush hour.",
+      "reference": "The peak hour at P528 on the Guntur to Bapatla to Chirala Road is between 18:00 and 19:00.",
+      "type": "location_specific_code",
+      "locations": [
+        "P528"
+      ],
+      "strategy": [
+        "location_specific"
+      ]
+    },
+    {
+      "question": "What is the peak hour traffic at Nadikudi?",
+      "answer": "The peak hour traffic at location P526, near Nadikudi on the Hyderabad to Guntur Road, is 443 vehicles, which occurs between 18:00 - 19:00 during the evening rush hour.",
+      "reference": "The peak hour at location P526 near Nadikudi on the Hyderabad to Guntur Road is 18:00-19:00 with 443 vehicles.",
+      "type": "location_specific_name",
+      "locations": [
+        "P526"
+      ],
+      "strategy": [
+        "location_specific"
+      ]
+    },
+    {
+      "question": "What is the busiest time of day on the Hyderabad to Guntur Road?",
+      "answer": "The busiest time of day on the Hyderabad to Guntur Road at location P526 is 18:00 - 19:00, which is considered the evening rush hour, with 443 vehicles recorded during this hour.",
+      "reference": "The busiest time on the Hyderabad to Guntur Road at P526 is 18:00-19:00 with 443 vehicles.",
+      "type": "location_specific_name",
+      "locations": [
+        "P526"
+      ],
+      "strategy": [
+        "location_specific"
+      ]
+    },
+    {
+      "question": "How much traffic is on the Guntur to Bapatla to Chirala Road?",
+      "answer": "At location P528 on the Guntur to Bapatla to Chirala Road, the Annual Average Daily Traffic (AADT) is 12,669 vehicles per day. This generates 13,734 Passenger Car Units (PCUs). The traffic is divided into two directions: \n- Guntur to Bapatla to Chirala Road direction has 6,579 vehicles/day, \n- Bapatla to Guntur direction has 5,786 vehicles/day, \nwith a 6.4% imbalance between the two directions.",
+      "reference": "The Guntur to Bapatla to Chirala Road at location P528 has an AADT of 12,669 vehicles per day.",
+      "type": "location_specific_name",
+      "locations": [
+        "P528"
+      ],
+      "strategy": [
+        "location_specific"
+      ]
+    },
+    {
+      "question": "Compare the traffic at P526 and P538.",
+      "answer": "At location P526 (Hyderabad to Guntur Road), the Annual Average Daily Traffic (AADT) is 6,537 vehicles per day. In contrast, location P538 (Chilakaluripet to Narasaraopet Road) has an AADT of 10,560 vehicles per day. \n\nThe dominant vehicle type at both locations is two wheelers, with 3,486/day (53.3% of total) at P526 and 5,890/day (55.8% of total) at P538.\n\nIn terms of traffic composition, P526 has a higher percentage of Fast Passenger Vehicles (73.9% of total) compared to P538 (83.4% of total is slightly higher but the actual number of goods vehicles is similar at both locations). Goods Vehicles account for 25.8% of total traffic at P526 and 16.1% at P538.\n\nThe total Passenger Car Units (PCUs) at P526 are 10,082, which is lower than the 11,950 PCUs at P538, indicating a higher road capacity demand at P538 due to the mix of vehicle types present.",
+      "reference": "P526 has AADT 6,537. P538 on the Chilakaluripet to Narasaraopet Road has AADT 10,560. P538 has higher traffic.",
+      "type": "comparison",
+      "locations": [
+        "P526",
+        "P538"
+      ],
+      "strategy": [
+        "comparison"
+      ]
+    },
+    {
+      "question": "Which has more traffic, P605 or P606?",
+      "answer": "P606 has more traffic than P605. At location P605, the Annual Average Daily Traffic (AADT) is 63 vehicles per day, whereas at location P606, the AADT is 448 vehicles per day.",
+      "reference": "P606 has more traffic with 448 vehicles per day compared to P605 with 63 vehicles per day.",
+      "type": "comparison",
+      "locations": [
+        "P605",
+        "P606"
+      ],
+      "strategy": [
+        "comparison"
+      ]
+    },
+    {
+      "question": "Which roads were surveyed near Tadikonda?",
+      "answer": "The available survey data mentions two roads near Tadikonda: \n1. Tadikoda to Meet NH 5 via Kantheru (Location P577), and \n2. Tadikonda to Rayapudi road (Location P-562).",
+      "reference": "P577 on the Tadikoda to Meet NH 5 via Kantheru road and P-562 on the Tadikonda to Rayapudi road.",
+      "type": "semantic",
+      "locations": [
+        "P577",
+        "P-562"
+      ],
+      "strategy": [
+        "semantic"
+      ]
+    },
+    {
+      "question": "Which location has the most balanced directional traffic split?",
+      "answer": "To determine the location with the most balanced directional traffic split, we need to compare the differences in traffic volume between the two directions at each location.\n\n- At location P579 (Apikkatla to Buddam road), the difference is 112 vehicles/day (884 - 772), which is a 6.8% imbalance.\n- At location P541 (Road frm 5 200 of OM road to 8 20 OM road), the difference is 6 vehicles/day (373 - 367), which is a very small imbalance.\n- At location P565 (BV road to RN Road Via Mantenavaripalem), the difference is 10 vehicles/day (373 - 363), which is also a small imbalance.\n\nBased on the provided data, location P541 (Road frm 5 200 of OM road to 8 20 OM road) has the most balanced directional traffic split with only a 6 vehicles/day difference between the two directions.",
+      "reference": "A location where both direction traffic counts are nearly equal.",
+      "type": "semantic",
+      "locations": [
+        "P579",
+        "P541",
+        "P565"
+      ],
+      "strategy": [
+        "semantic"
+      ]
+    }
+  ]
+}
