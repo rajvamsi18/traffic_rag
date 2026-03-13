@@ -118,11 +118,54 @@ SUPERLATIVE_PATTERNS = [
     (r'\b(lowest|least|quietest)\b.{0,30}\b(peak|congestion)\b',
      'peak_volume_asc', 'lowest peak hour volume'),
 
-    # Buses / auto rickshaws
-    (r'\b(most)\b.{0,15}\b(buses?|bus traffic)\b',
+    # Buses
+    (r'\b(highest|most|maximum)\b.{0,20}\b(bus(es)?|bus traffic|standard.?bus|mini.?bus)\b',
      'buses', 'highest bus traffic'),
-    (r'\b(most)\b.{0,15}\b(auto.?rickshaw|three.?wheel|autorickshaw)\b',
+    (r'\b(lowest|least|minimum)\b.{0,20}\b(bus(es)?|bus traffic|standard.?bus|mini.?bus)\b',
+     'buses_asc', 'lowest bus traffic'),
+
+     # Cars / jeeps / vans
+    (r'\b(highest|most|maximum)\b.{0,20}\b(car|jeep|van|passenger car)\b',
+     'car_jeep_van', 'highest car/jeep/van count'),
+    (r'\b(lowest|least|minimum)\b.{0,20}\b(car|jeep|van|passenger car)\b',
+     'car_jeep_van_asc', 'lowest car/jeep/van count'),
+
+     # LCV
+    (r'\b(highest|most|maximum)\b.{0,20}\b(lcv|light commercial|light.?goods)\b',
+     'lcv', 'highest LCV count'),
+    (r'\b(lowest|least|minimum)\b.{0,20}\b(lcv|light commercial|light.?goods)\b',
+     'lcv_asc', 'lowest LCV count'),
+
+      # Tractors
+    (r'\b(highest|most|maximum)\b.{0,20}\b(tractors?|farm vehicle)\b',
+     'tractors', 'highest tractor count'),
+    (r'\b(lowest|least|minimum)\b.{0,20}\b(tractors?|farm vehicle)\b',
+     'tractors_asc', 'lowest tractor count'),
+
+     # Auto rickshaws
+    (r'\b(highest|most|maximum)\b.{0,20}\b(auto.?rickshaw|three.?wheel|autorickshaw)\b',
      'auto_rickshaw', 'highest auto rickshaw count'),
+    (r'\b(lowest|least|minimum)\b.{0,20}\b(auto.?rickshaw|three.?wheel|autorickshaw)\b',
+     'auto_rickshaw_asc', 'lowest auto rickshaw count'),
+
+     # Tempo
+    (r'\b(highest|most|maximum)\b.{0,20}\b(tempo|minivan|mini.?van)\b',
+     'tempo', 'highest tempo count'),
+    (r'\b(lowest|least|minimum)\b.{0,20}\b(tempo|minivan|mini.?van)\b',
+     'tempo_asc', 'lowest tempo count'),
+
+    # MAV (multi-axle vehicles)
+    (r'\b(highest|most|maximum)\b.{0,20}\b(mav|multi.?axle|articulated)\b',
+     'mav', 'highest MAV count'),
+    (r'\b(lowest|least|minimum)\b.{0,20}\b(mav|multi.?axle|articulated)\b',
+     'mav_asc', 'lowest MAV count'),
+
+    # Cycles
+    (r'\b(highest|most|maximum)\b.{0,20}\b(cycle|bicycle|cycling)\b',
+     'cycles', 'highest cycle count'),
+    (r'\b(lowest|least|minimum)\b.{0,20}\b(cycle|bicycle|cycling)\b',
+     'cycles_asc', 'lowest cycle count'),
+
 
     # ── Generic AADT / total traffic LAST ──
     # Must come after specific types so "highest truck traffic" doesn't
@@ -161,7 +204,21 @@ def _get_metric_value(data: dict, metric: str) -> float:
         'peak_volume':    lambda: data.get('peak_hour_volume', 0) or 0,
         'peak_volume_asc':lambda: data.get('peak_hour_volume', 0) or 0,
         'buses':          lambda: (aadt.get('mini_bus', 0) or 0) + (aadt.get('standard_bus', 0) or 0),
-        'auto_rickshaw':  lambda: aadt.get('auto_rickshaw', 0) or 0,
+        'buses_asc':      lambda: (aadt.get('mini_bus', 0) or 0) + (aadt.get('standard_bus', 0) or 0),
+        'car_jeep_van':   lambda: aadt.get('car_jeep_van', 0) or 0,
+        'car_jeep_van_asc': lambda: aadt.get('car_jeep_van', 0) or 0,
+        'lcv':              lambda: aadt.get('lcv', 0) or 0,
+        'lcv_asc':          lambda: aadt.get('lcv', 0) or 0,
+        'tractors':         lambda: (aadt.get('tractor_with_trailer', 0) or 0) + (aadt.get('tractor_without_trailer', 0) or 0),
+        'tractors_asc':     lambda: (aadt.get('tractor_with_trailer', 0) or 0) + (aadt.get('tractor_without_trailer', 0) or 0),
+        'auto_rickshaw':    lambda: aadt.get('auto_rickshaw', 0) or 0,
+        'auto_rickshaw_asc':lambda: aadt.get('auto_rickshaw', 0) or 0,
+        'tempo':            lambda: aadt.get('tempo', 0) or 0,
+        'tempo_asc':        lambda: aadt.get('tempo', 0) or 0,
+        'mav':              lambda: aadt.get('mav', 0) or 0,
+        'mav_asc':          lambda: aadt.get('mav', 0) or 0,
+        'cycles':           lambda: aadt.get('cycle', 0) or 0,
+        'cycles_asc':       lambda: aadt.get('cycle', 0) or 0,
     }
 
     fn = mapping.get(metric)
