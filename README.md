@@ -84,6 +84,7 @@ The retriever classifies every query before deciding how to retrieve:
 | Vector store | ChromaDB | Persistent, local, zero infrastructure |
 | LLM | Groq llama-3.3-70b-versatile | Fast, free tier, OpenAI-compatible API |
 | Evaluation | RAGAS 0.4.3 | LLM-based scoring for faithfulness and answer relevancy |
+| UI | Streamlit | Python-native web UI, no HTML or JavaScript required |
 | Framework | Pure Python | No LangChain, no orchestration layer |
 
 LangChain was deliberately excluded. Every component is wired together with explicit Python function calls, which makes the data flow traceable and the architecture explainable without needing to understand a framework's abstractions.
@@ -103,7 +104,7 @@ Evaluated using RAGAS across 15 hand-crafted test cases covering all four query 
 
 **Faithfulness 0.941** means 94% of the factual claims in each answer can be traced directly to a retrieved chunk. The system is not inventing road names, traffic counts, or location identifiers.
 
-**Answer Relevancy 0.893** is slightly below 1.0 because some answers, particularly comparisons — provide more detail than the minimum. For example, a "compare P526 and P538" query returns AADT, vehicle composition percentages, PCU totals, and directional breakdowns. This extra depth is accurate and useful, but RAGAS interprets answers that go beyond the strict minimum as slightly less directly relevant to the question.
+**Answer Relevancy 0.893** is slightly below 1.0 because some answers, particularly comparisons, provide more detail than the minimum. For example, a "compare P526 and P538" query returns AADT, vehicle composition percentages, PCU totals, and directional breakdowns. This extra depth is accurate and useful, but RAGAS interprets answers that go beyond the strict minimum as slightly less directly relevant to the question.
 
 **Context Precision returned N/A.** The metric requires brief ground truth reference answers to judge which retrieved chunks were necessary. Our references were single sentences while retrieved chunks are dense multi-paragraph summaries, the LLM judge could not consistently assign credit. This is a metric configuration issue, not a retrieval failure. Per-query results confirm the correct location was retrieved in all 15 cases.
 
@@ -113,6 +114,7 @@ Evaluated using RAGAS across 15 hand-crafted test cases covering all four query 
 
 ```
 traffic_rag/
+├── app.py                    ← Streamlit web UI (Phase 8)
 ├── data/
 │   ├── raw/                  ← 86 XLS source files
 │   └── processed/            ← 84 JSON records + _all_locations.json
@@ -135,6 +137,7 @@ traffic_rag/
 │   ├── PHASE5_RETRIEVER.md
 │   ├── PHASE6_GENERATOR.md
 │   ├── PHASE7_EVALUATION.md
+│   ├── PHASE8_UI.md
 │   └── evaluation_results.json
 ├── .env                      ← GROQ_API_KEY
 └── venv/
@@ -150,9 +153,9 @@ traffic_rag/
 # Clone and set up
 git clone <repo>
 cd traffic_rag
-python -m venv venv
+python3 -m venv venv
 source venv/bin/activate
-pip install pandas xlrd sentence-transformers chromadb python-dotenv groq ragas langchain-groq langchain-community
+pip install -r requirements.txt
 ```
 
 Add your Groq API key to `.env`:
@@ -162,22 +165,30 @@ GROQ_API_KEY=your_key_here
 
 **First-time pipeline setup** (run once, in order):
 ```bash
-python src/extractor.py    # XLS → JSON
-python src/validator.py    # check data quality
-python src/converter.py    # JSON → 336 text chunks
-python src/embedder.py     # embed into ChromaDB
+python3 src/extractor.py    # XLS → JSON
+python3 src/validator.py    # check data quality
+python3 src/converter.py    # JSON → 336 text chunks
+python3 src/embedder.py     # embed into ChromaDB
 ```
 
 **Using the system:**
 ```bash
-python src/main.py              # interactive mode
-python src/main.py --test       # run 8 built-in test queries
-python src/main.py --debug      # show full prompt alongside answers
+# Interactive terminal mode
+python3 src/main.py
+
+# Run 8 built-in test queries
+python3 src/main.py --test
+
+# Show full prompt alongside answers
+python3 src/main.py --debug
+
+# Web UI (opens at http://localhost:8501)
+./venv/bin/python -m streamlit run app.py
 ```
 
 **Running evaluation:**
 ```bash
-python src/evaluate.py --save   # runs all 15 test cases and saves scores
+python3 src/evaluate.py --save   # runs all 15 test cases and saves scores
 ```
 
 Note: evaluation consumes roughly 80,000–90,000 Groq tokens. The free tier allows 100,000 per day.
@@ -222,11 +233,12 @@ Note: evaluation consumes roughly 80,000–90,000 Groq tokens. The free tier all
 - **Single survey date per location.** The dataset captures a single day of traffic at each location. AADT is estimated from this single day, it is labelled as AADT in the source files but should be interpreted as a survey-day estimate, not a multi-year average.
 - **Groq free tier rate limits.** The 100,000 token/day limit means running evaluation and interactive queries on the same day may exhaust the daily allowance. The system has retry logic for per-minute limits but exits gracefully when the daily cap is hit.
 - **Context Precision not scored.** See evaluation section above.
+- **UI runs locally only.** The Streamlit interface is a local demo tool. It requires the vectorstore and processed data to be built locally before use.
 
 ---
 
 ## Acknowledgements
 
-This project was built with significant assistance from Claude (Anthropic). Claude helped with debugging across all seven phases, including five bugs in the retriever, two bugs in the generator pipeline, and four incompatible API changes in RAGAS 0.4.x, and contributed to the documentation structure and phase planning. The architectural decisions, dataset selection, and all code are my own work; Claude served as a debugging partner and sounding board throughout.
+This project was built with significant assistance from Claude (Anthropic). Claude helped with debugging across all eight phases, including five bugs in the retriever, two bugs in the generator pipeline, four incompatible API changes in RAGAS 0.4.x, and two regex bugs in the superlative vehicle type patterns, and contributed to the documentation structure and phase planning. The architectural decisions, dataset selection, and all code are my own work; Claude served as a debugging partner and sounding board throughout.
 
 The dataset is published by the IndiaAI / AIKosh platform under an open government data licence. I am grateful to the Andhra Pradesh state government for making this data publicly available.
